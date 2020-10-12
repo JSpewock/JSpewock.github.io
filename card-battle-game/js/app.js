@@ -1,8 +1,8 @@
 // console.log('connected')
 $(() => {
-    const cards = []
-    let pChoice = ''
-    let liveCard = false
+    const cards = [] //Array for card values
+    let pChoice = '' // variable to hold the value of the players choice of card
+    let liveCard = false //if you have any cards in the live field
     // console.log('j query connected')
     const startGame = () => {
 
@@ -11,7 +11,7 @@ $(() => {
     $.ajax({
         url: `https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=${dexNum}`
     }).then((data) => {
-        console.log(data)
+        // console.log(data)
         randomCardNum = Math.floor(Math.random()*data.cards.length) // Random number to choose which card of that pokemon
         cards.push(data.cards[randomCardNum])
         let newCard = $('<img>').attr('src', data.cards[randomCardNum].imageUrl)
@@ -39,18 +39,31 @@ $(() => {
     
 const choosePoke = () => {
     $('.player-card').on('click', () => {
-        console.log($(event.target).attr('src'))
+        // console.log($(event.target).attr('src'))
         if (liveCard === false) { // Check to see if you already have a card down
         pChoice = cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
         $('#row2').append(event.target)
-        console.log(pChoice)
-        liveCard = true // Update to say thatyou now have a card down
+        // console.log(pChoice)
+        liveCard = true // Update to say that you now have a card down
+        battle()
         }
     })
 }
 
 const battle = () => {
-    
+    let randomComCardNum = Math.floor(Math.random()*$('.com-card').length) //chooses a random card from the computers hand
+    console.log(randomComCardNum)
+    let $randomComputerCard = $('.com-card')[randomComCardNum]
+    $('#row2').append($randomComputerCard)
+    $('<button>').attr('id', 'attack-button').text('Attack').appendTo('#row2')
+    $('#attack-button').on('click', () => {
+        console.log($('.com-card'))
+        if (pChoice.attacks[1]) {
+        console.log(pChoice.attacks[1].damage)
+        } else {
+            console.log(pChoice.attacks[0].damage)
+        }
+    })
 }
 //// Testing variable idea
 $('button').on('click', () => {
