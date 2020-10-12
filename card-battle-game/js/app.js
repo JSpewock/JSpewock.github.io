@@ -50,31 +50,48 @@ let gameLogic = {
         // console.log(computerChoice)
         $('#row2').append($randomComputerCard)
         $('<button>').attr('id', 'attack-button').text('Attack').appendTo('#row2')
-        $('#attack-button').on('click', gameLogic.attack)
+        $('#attack-button').on('click', () => {
+            gameLogic.attack(variables.playerChoice)
+            gameLogic.attack(variables.computerChoice)
+        })
     },
-    attack: () => {
+    attack: (currentCard) => {
         variables.computerChoice.hp = parseInt(variables.computerChoice.hp)
         variables.playerChoice.hp = parseInt(variables.playerChoice.hp)
-        //playerAttack 1 & 2 are set equal to the moves on the players current card
-        let $playerAttack1 = variables.playerChoice.attacks[0].damage // Had to place playerAttack1 down here because it uses another vairable in the object
-        let $playerAttack2 = ""
+        //attack 1 & 2 are set equal to the moves on the current card
+        let $attack1 = currentCard.attacks[0].damage
+        let $attack2 = ""
 
-        if (variables.playerChoice.attacks[1]) {$attack2 = variables.playerChoice.attacks[1].damage}
+        if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
         // console.log($('.com-card'))
+
         //=======================
-        //Player attack
+        //Attacking logic
         //=======================
         //The first line checks if there is a second attack and if it has a damage value
-        if ($playerAttack2 !== "") {
-             variables.computerChoice.hp -= parseInt($playerAttack2)
-             console.log(variables.computerChoice.hp)
-        } else if ($playerAttack1 !== "") { // Checks to see if the first attack has a damage value
-            variables.computerChoice.hp -= parseInt($playerAttack1) 
-            console.log(variables.computerChoice.hp)
-        } else { // If there are no damaging moves, do 10 damage
-            variables.computerChoice.hp -= 10
-            console.log(variables.computerChoice.hp)
-        }
+        if (currentCard === variables.playerChoice){
+            if ($attack2 !== "") {
+                variables.computerChoice.hp -= parseInt($attack2)
+                console.log(variables.computerChoice.hp)
+            } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
+                variables.computerChoice.hp -= parseInt($attack1) 
+                console.log(variables.computerChoice.hp)
+            } else { // If there are no damaging moves, do 10 damage
+                variables.computerChoice.hp -= 10
+                console.log(variables.computerChoice.hp)
+            }
+        } else if (currentCard === variables.computerChoice) {
+            if ($attack2 !== "") {
+                    variables.playerChoice.hp -= parseInt($attack2)
+                    console.log(variables.playerChoice.hp)
+            } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
+                variables.playerChoice.hp -= parseInt($attack1) 
+                console.log(variables.playerChoice.hp)
+            } else { // If there are no damaging moves, do 10 damage
+                variables.computerChoice.hp -= 10
+                console.log(variables.playerChoice.hp)
+            }
+            }
     }
 
 }
