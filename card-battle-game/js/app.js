@@ -1,9 +1,9 @@
-// console.log('connected')
+
 $(() => {
     const cards = [] //Array for card values
-    let pChoice = '' // variable to hold the value of the players choice of card
+    let playerChoice = '' // variable to hold the value of the players choice of card
+    let computerChoice = ''
     let liveCard = false //if you have any cards in the live field
-    // console.log('j query connected')
     const startGame = () => {
 
     for (let i = 0; i < 10; i++) {
@@ -22,14 +22,6 @@ $(() => {
             newCard.addClass('player-card')
             $('#row3').append(newCard)
         }
-        // $('body').append(newCard)
-        // console.log(cards)
-        
-        // $('.player-card').on('click', () => {
-        //     console.log($(event.target).attr('src'))
-        //     pChoice = cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-        //     console.log(pChoice)
-        // })
         choosePoke()
         
     })
@@ -39,35 +31,42 @@ $(() => {
     
 const choosePoke = () => {
     $('.player-card').on('click', () => {
-        // console.log($(event.target).attr('src'))
         if (liveCard === false) { // Check to see if you already have a card down
-        pChoice = cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-        $('#row2').append(event.target)
-        // console.log(pChoice)
-        liveCard = true // Update to say that you now have a card down
-        battle()
+            playerChoice = cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+            $('#row2').append(event.target)
+            liveCard = true // Update to say that you now have a card down
+            battle()
         }
     })
 }
 
 const battle = () => {
-    let randomComCardNum = Math.floor(Math.random()*$('.com-card').length) //chooses a random card from the computers hand
-    console.log(randomComCardNum)
-    let $randomComputerCard = $('.com-card')[randomComCardNum]
+    let randomComCardIndex = Math.floor(Math.random()*$('.com-card').length) 
+    let $randomComputerCard = $('.com-card')[randomComCardIndex] //uses the random index generated on the previous line to choose a random computer card
+    computerChoice = cards.find(({imageUrl}) => imageUrl === $($randomComputerCard).attr('src')) // Same line I used before, essentially just grabbing the data for the card the computer chose
+    console.log(computerChoice)
     $('#row2').append($randomComputerCard)
     $('<button>').attr('id', 'attack-button').text('Attack').appendTo('#row2')
     $('#attack-button').on('click', () => {
-        console.log($('.com-card'))
-        if (pChoice.attacks[1]) {
-        console.log(pChoice.attacks[1].damage)
+        computerChoice.hp = parseInt(computerChoice.hp)
+        playerChoice.hp = parseInt(playerChoice.hp)
+
+        // console.log($('.com-card'))
+        //=======================
+        //Player attack
+        //=======================
+        if (playerChoice.attacks[1]) {
+            computerChoice.hp -= parseInt(playerChoice.attacks[1].damage)
+            console.log(computerChoice.hp)
+        } else if (parseInt(playerChoice.attacks[0])) {
+            console.log(playerChoice.attacks[0].damage)
         } else {
-            console.log(pChoice.attacks[0].damage)
+            //does 10 damage
         }
     })
 }
 //// Testing variable idea
 $('button').on('click', () => {
     startGame()
-    // choosePoke()
 })
 })
