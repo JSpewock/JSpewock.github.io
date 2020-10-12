@@ -61,15 +61,14 @@ let gameLogic = {
         //attack 1 & 2 are set equal to the moves on the current card
         let $attack1 = currentCard.attacks[0].damage
         let $attack2 = ""
-
         if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
-        // console.log($('.com-card'))
 
         //=======================
         //Attacking logic
         //=======================
+        if (currentCard === variables.playerChoice){ //Check to see if the player is attacking or the computer is attacking
+
         //The first line checks if there is a second attack and if it has a damage value
-        if (currentCard === variables.playerChoice){
             if ($attack2 !== "") {
                 variables.computerChoice.hp -= parseInt($attack2)
                 console.log(variables.computerChoice.hp)
@@ -80,14 +79,14 @@ let gameLogic = {
                 variables.computerChoice.hp -= 10
                 console.log(variables.computerChoice.hp)
             }
-        } else if (currentCard === variables.computerChoice) {
+        } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
             if ($attack2 !== "") {
                     variables.playerChoice.hp -= parseInt($attack2)
                     console.log(variables.playerChoice.hp)
-            } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
+            } else if ($attack1 !== "") {
                 variables.playerChoice.hp -= parseInt($attack1) 
                 console.log(variables.playerChoice.hp)
-            } else { // If there are no damaging moves, do 10 damage
+            } else {
                 variables.computerChoice.hp -= 10
                 console.log(variables.playerChoice.hp)
             }
