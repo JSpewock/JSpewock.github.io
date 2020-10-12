@@ -3,7 +3,7 @@ let variables = {
     cards: [], //Array for card values
     playerChoice: '', // variable to hold the value of the players choice of card
     computerChoice: '',
-    liveCard: false //if you have any cards in the live field
+    liveCard: false, //if you have any cards in the live field
 }
 
 let Ui = {
@@ -55,19 +55,25 @@ let gameLogic = {
     attack: () => {
         variables.computerChoice.hp = parseInt(variables.computerChoice.hp)
         variables.playerChoice.hp = parseInt(variables.playerChoice.hp)
-    
+        //playerAttack 1 & 2 are set equal to the moves on the players current card
+        let $playerAttack1 = variables.playerChoice.attacks[0].damage // Had to place playerAttack1 down here because it uses another vairable in the object
+        let $playerAttack2 = ""
+
+        if (variables.playerChoice.attacks[1]) {$attack2 = variables.playerChoice.attacks[1].damage}
         // console.log($('.com-card'))
         //=======================
         //Player attack
         //=======================
         //The first line checks if there is a second attack and if it has a damage value
-        if (variables.playerChoice.attacks[1] && typeof parseInt(variables.playerChoice.attacks[1].damage) === 'number') { // taken inspiration from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
-             variables.computerChoice.hp -= parseInt(variables.playerChoice.attacks[1].damage)
+        if ($playerAttack2 !== "") {
+             variables.computerChoice.hp -= parseInt($playerAttack2)
              console.log(variables.computerChoice.hp)
-        } else if (typeof parseInt(playerChoice.attacks[0].damage) === 'number') { // Checks to see if the first attack has a damage value
-             console.log(variables.playerChoice.attacks[0].damage)
-        } else {
-            //does 10 damage
+        } else if ($playerAttack1 !== "") { // Checks to see if the first attack has a damage value
+            variables.computerChoice.hp -= parseInt($playerAttack1) 
+            console.log(variables.computerChoice.hp)
+        } else { // If there are no damaging moves, do 10 damage
+            variables.computerChoice.hp -= 10
+            console.log(variables.computerChoice.hp)
         }
     }
 
