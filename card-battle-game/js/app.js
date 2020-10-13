@@ -10,6 +10,8 @@
 
 
 let variables = {
+    battleMusic: '',
+    backgroundMusic: [],
     cards: [], //Array for card values
     playerChoice: '', // variable to hold the value of the players choice of card
     computerChoice: '',
@@ -160,15 +162,18 @@ $(() => {
     //information on how to use audio taken from the following links
     //https://stackoverflow.com/questions/8489710/play-an-audio-file-using-jquery-when-a-button-is-clicked
     //https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
-    
+
     const backgroundMusic = new Audio()
     backgroundMusic.src = "./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3"
     backgroundMusic.volume = 0.5
-    
-$('body').append(backgroundMusic)
+
+    variables.battleMusic = new Audio()
+    variables.battleMusic.src = './sounds/cynthia_battle_music.mp3'
+    variables.battleMusic.volume = 0.2
+// $('body').append(backgroundMusic)
     // console.log(backgroundMusic)
 $('button').on('click', () => {
-    backgroundMusic.play()
+    variables.battleMusic.play()
     Ui.startGame()
 })
 
