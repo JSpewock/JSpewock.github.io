@@ -1,3 +1,13 @@
+//Cynthia Battle - from Pokemon Platinum
+//amity square
+//Oreburgh City
+//Route 205 night
+//Encounter! Team galactic
+//underground passage
+//poffin 
+//route 225
+
+
 
 let variables = {
     cards: [], //Array for card values
@@ -147,8 +157,18 @@ let gameLogic = {
 
 
 $(() => {
-
+    //information on how to use audio taken from the following links
+    //https://stackoverflow.com/questions/8489710/play-an-audio-file-using-jquery-when-a-button-is-clicked
+    //https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
+    
+    const backgroundMusic = new Audio()
+    backgroundMusic.src = "./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3"
+    backgroundMusic.volume = 0.5
+    
+$('body').append(backgroundMusic)
+    // console.log(backgroundMusic)
 $('button').on('click', () => {
+    backgroundMusic.play()
     Ui.startGame()
 })
 
