@@ -3,7 +3,10 @@ let variables = {
     cards: [], //Array for card values
     playerChoice: '', // variable to hold the value of the players choice of card
     computerChoice: '',
-    liveCard: false, //if you have any cards in the live field
+    playerLiveCard: false, //if you have any cards in the live field
+    computerLiveCard: false,
+    playerCardCount: 5, // how many cards the player has left
+    computerCardCount: 5
 }
 
 let Ui = {
@@ -25,30 +28,33 @@ let Ui = {
                 newCard.addClass('player-card')
                 $('#row3').append(newCard)
             }
-            gameLogic.choosePoke()
-            
+            gameLogic.ChoosePoke()            
             })
         }
         }
 }
 
 let gameLogic = {
-    choosePoke: () => {
+    ChoosePoke: () => {
         $('.player-card').on('click', () => {
-            if (variables.liveCard === false) { // Check to see if you already have a card down
+            if (variables.playerLiveCard === false) { // Check to see if you already have a card down
                 variables.playerChoice = variables.cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
                 $('#row2').append(event.target)
-                variables.liveCard = true // Update to say that you now have a card down
+                variables.playerLiveCard = true // Update to say that you now have a card down
                 gameLogic.battle()
             }
         })
+        
     },
     battle: () => {
-        let randomComCardIndex = Math.floor(Math.random()*$('.com-card').length) 
-        let $randomComputerCard = $('.com-card')[randomComCardIndex] //uses the random index generated on the previous line to choose a random computer card
-        variables.computerChoice = variables.cards.find(({imageUrl}) => imageUrl === $($randomComputerCard).attr('src')) // Same line I used before, essentially just grabbing the data for the card the computer chose
-        // console.log(computerChoice)
-        $('#row2').append($randomComputerCard)
+        if (variables.computerLiveCard === false) {
+            let randomComCardIndex = Math.floor(Math.random()*$('.com-card').length) 
+            let $randomComputerCard = $('.com-card')[randomComCardIndex] //uses the random index generated on the previous line to choose a random computer card
+            variables.computerChoice = variables.cards.find(({imageUrl}) => imageUrl === $($randomComputerCard).attr('src')) // Same line I used before, essentially just grabbing the data for the card the computer chose
+            // console.log(computerChoice)
+            $('#row2').append($randomComputerCard)
+            variables.computerLiveCard = true
+        }
         $('<button>').attr('id', 'attack-button').text('Attack').appendTo('#row2')
         $('#attack-button').on('click', () => {
             gameLogic.attack(variables.playerChoice)
@@ -67,9 +73,7 @@ let gameLogic = {
         //Attacking logic
         //=======================
         if (currentCard === variables.playerChoice){ //Check to see if the player is attacking or the computer is attacking
-
-        //The first line checks if there is a second attack and if it has a damage value
-            if ($attack2 !== "") {
+            if ($attack2 !== "") { //The first line checks if there is a second attack and if it has a damage value
                 variables.computerChoice.hp -= parseInt($attack2)
                 console.log(variables.computerChoice.hp)
             } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
@@ -78,6 +82,22 @@ let gameLogic = {
             } else { // If there are no damaging moves, do 10 damage
                 variables.computerChoice.hp -= 10
                 console.log(variables.computerChoice.hp)
+            }
+            //=================================
+            //Check if computer card is dead
+            //=================================
+            if (variables.computerChoice.hp <= 0) {
+                variables.computerChoice = ""
+                $('#row2 > .com-card').remove()
+                $('#attack-button').remove()
+                variables.computerCardCount -= 1
+                variables.computerLiveCard = false
+                //win check
+                if (variables.computerCardCount = 0) {
+                    gameLogic.win()
+                } else {
+                    gameLogic.battle()
+                }
             }
         } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
             if ($attack2 !== "") {
@@ -90,7 +110,30 @@ let gameLogic = {
                 variables.computerChoice.hp -= 10
                 console.log(variables.playerChoice.hp)
             }
+            //==================================
+            //Check if player card is dead
+            //==================================
+            if (variables.playerChoice.hp <= 0) {
+                variables.playerChoice = ""
+                $('#row2 > .player-card').remove()
+                $('#attack-button').remove()
+                variables.playerCardCount -= 1
+                variables.playerLiveCard = false
+                //win check
+                if (variables.playerCardCount = 0) {
+                    gameLogic.win()
+                } else {
+                    gameLogic.ChoosePoke()
+                }
             }
+            }
+    },
+    win: () => {
+        if (variables.computerCardCount = 0) {
+            alert('Congratulations! The computer has run out of cards; You win!')
+        } else if (variables.playerCardCount = 0) {
+            alert('Not this time trainer, you\'ve been bested.')
+        }
     }
 
 }
