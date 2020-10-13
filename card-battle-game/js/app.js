@@ -36,6 +36,7 @@ let Ui = {
 
 let gameLogic = {
     ChoosePoke: () => {
+        //win check
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         }
@@ -58,6 +59,7 @@ let gameLogic = {
             $('#row2').append($randomComputerCard)
             variables.computerLiveCard = true
         }
+        //win check
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         } else {
@@ -69,6 +71,7 @@ let gameLogic = {
         }
     },
     attack: (currentCard) => {
+        //win check
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         } else {
@@ -103,7 +106,6 @@ let gameLogic = {
                 variables.computerCardCount -= 1
                 console.log(`the computer has ${variables.computerCardCount} cards left`)
                 variables.computerLiveCard = false
-                //win check
                 gameLogic.battle()
             }
         } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
@@ -127,7 +129,6 @@ let gameLogic = {
                 variables.playerCardCount -= 1
                 console.log(`the player has ${variables.playerCardCount} cards left`)
                 variables.playerLiveCard = false
-                //win check
                 gameLogic.ChoosePoke()
             }
             }
