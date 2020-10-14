@@ -177,15 +177,14 @@ $(() => {
     variables.battleMusic = new Audio()
     variables.battleMusic.src = './sounds/cynthia_battle_music.mp3'
     variables.battleMusic.volume = 0.10
-// $('body').append(backgroundMusic)
-    // console.log(backgroundMusic)
+
     $('#start-button').on('click', () => {
         variables.battleMusic.play()
         Ui.makeDivs()
         Ui.startGame()
     })
     $('#htp-button').on('click', () => {
-        $('.modal').css('display', 'block')
+        $('#htp-modal').css('display', 'block')
     })
     $('#next-bg').on('click', () => {
         if (variables.backgroundImageCounter < 3) {
