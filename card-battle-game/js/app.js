@@ -18,10 +18,17 @@ let variables = {
     playerLiveCard: false, //if you have any cards in the live field
     computerLiveCard: false,
     playerCardCount: 5, // how many cards the player has left
-    computerCardCount: 5
+    computerCardCount: 5,
+    backgroundImages: ['https://i.imgur.com/5oexPaK.jpg', 'https://i.imgur.com/AA83VQ5.jpg', 'https://i.imgur.com/2dWNKue.jpg', 'https://i.imgur.com/TDGwUVq.png'],
+    backgroundImageCounter: 0
 }
 
 let Ui = {
+    makeDivs: () => {
+        for (let i = 1; i <= 3; i++) {
+            $('<div>').attr('id', `row${i}`).appendTo('body')
+        }
+    },
     startGame: () => {
 
         for (let i = 0; i < 10; i++) { // loop to generate 10 cards
@@ -169,12 +176,24 @@ $(() => {
 
     variables.battleMusic = new Audio()
     variables.battleMusic.src = './sounds/cynthia_battle_music.mp3'
-    variables.battleMusic.volume = 0.2
+    variables.battleMusic.volume = 0.10
 // $('body').append(backgroundMusic)
     // console.log(backgroundMusic)
-$('button').on('click', () => {
-    variables.battleMusic.play()
-    Ui.startGame()
-})
-
+    $('#start-button').on('click', () => {
+        variables.battleMusic.play()
+        Ui.makeDivs()
+        Ui.startGame()
+    })
+    $('#next-bg').on('click', () => {
+        if (variables.backgroundImageCounter < 3) {
+            variables.backgroundImageCounter += 1
+            $('body').css('background-image', `url(${variables.backgroundImages[variables.backgroundImageCounter]})`)
+        }
+    })
+    $('#prev-bg').on('click', () => {
+        if (variables.backgroundImageCounter > 0) {
+            variables.backgroundImageCounter -= 1
+            $('body').css('background-image', `url(${variables.backgroundImages[variables.backgroundImageCounter]})`)
+        }
+    })
 })
