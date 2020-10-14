@@ -184,6 +184,9 @@ $(() => {
         Ui.makeDivs()
         Ui.startGame()
     })
+    $('#htp-button').on('click', () => {
+        $('.modal').css('display', 'block')
+    })
     $('#next-bg').on('click', () => {
         if (variables.backgroundImageCounter < 3) {
             variables.backgroundImageCounter += 1
