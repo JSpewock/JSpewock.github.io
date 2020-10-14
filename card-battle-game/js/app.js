@@ -29,6 +29,11 @@ let Ui = {
             $('<div>').attr('id', `row${i}`).appendTo('body')
         }
     },
+    removeDivs: () =>{
+        $('#row1').remove()
+        $('#row2').remove()
+        $('#row3').remove()
+    },
     startGame: () => {
 
         for (let i = 0; i < 10; i++) { // loop to generate 10 cards
@@ -37,6 +42,8 @@ let Ui = {
             url: `https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=${dexNum}`
         }).then((data) => {
             // console.log(data)
+            variables.playerCardCount = 5
+            variables.computerCardCount = 5
             randomCardNum = Math.floor(Math.random()*data.cards.length) // Random number to choose which style card of that pokemon
             variables.cards.push(data.cards[randomCardNum])
             let newCard = $('<img>').attr('src', data.cards[randomCardNum].imageUrl)
@@ -156,7 +163,19 @@ let gameLogic = {
     win: () => {
         if (variables.computerCardCount === 0) {
             console.log('Congratulations! The computer has run out of cards; You win!')
-            
+            $('#win-lose-textbox').html(`
+            <h2>Congratulations, you won!</h2>
+            <p>Well done trainer, you managed to use the cards given to you to best the computer in a brilliant fashion. Hats off to you, good sir. Click the button below to restart the game.</p>
+            <button id="close-win-lose">Restart</button>`
+            )
+            $('#win-lose-modal').css('display', 'block')
+            $('#close-win-lose').on('click', () =>{
+                $('#win-lose-modal').css('display', 'none')
+                Ui.removeDivs()
+                Ui.makeDivs()
+                Ui.startGame()
+            })
+
         } else if (variables.playerCardCount === 0) {
             console.log('Not this time trainer, you\'ve been bested.')
         }
