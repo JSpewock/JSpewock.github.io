@@ -178,6 +178,18 @@ let gameLogic = {
 
         } else if (variables.playerCardCount === 0) {
             console.log('Not this time trainer, you\'ve been bested.')
+            $('#win-lose-textbox').html(`
+            <h2>Not this time trainer, you've been bested.</h2>
+            <p>The enemy was simply faster to adapt and better with his resources. Take this battle as an opportunity to learn and grow. Come back when you feel you're ready to try again and press the button below.</p>
+            <button id="close-win-lose">Restart</button>`
+            )
+            $('#win-lose-modal').css('display', 'block')
+            $('#close-win-lose').on('click', () =>{
+                $('#win-lose-modal').css('display', 'none')
+                Ui.removeDivs()
+                Ui.makeDivs()
+                Ui.startGame()
+            })
         }
     }
 
