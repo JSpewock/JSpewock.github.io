@@ -28,6 +28,8 @@ let Ui = {
         for (let i = 1; i <= 3; i++) {
             $('<div>').attr('id', `row${i}`).appendTo('body')
         }
+        $('<h3>').addClass('player-card-hp').text('Your current card HP: ').appendTo('#row3')
+        $('<h3>').addClass('com-card-hp').text('The computer\'s current card HP: ').appendTo('#row1')
     },
     removeDivs: () =>{
         $('#row1').remove()
@@ -79,12 +81,14 @@ let gameLogic = {
         
     },
     battle: () => {
-        if (variables.computerLiveCard === false) {
+        //computer plays card
+        if (variables.computerLiveCard === false && variables.computerCardCount > 0) {
             let randomComCardIndex = Math.floor(Math.random()*$('.com-card').length) 
             let $randomComputerCard = $('.com-card')[randomComCardIndex] //uses the random index generated on the previous line to choose a random computer card
             variables.computerChoice = variables.cards.find(({imageUrl}) => imageUrl === $($randomComputerCard).attr('src')) // Same line I used before, essentially just grabbing the data for the card the computer chose
             // console.log(computerChoice)
             $('#row2').append($randomComputerCard)
+            $('.com-card-hp').text(`The computer\'s current card HP: ${variables.computerChoice.hp}`)
             variables.computerLiveCard = true
         }
         //win check
@@ -116,12 +120,15 @@ let gameLogic = {
         if (currentCard === variables.playerChoice){ //Check to see if the player is attacking or the computer is attacking
             if ($attack2 !== "") { //The first line checks if there is a second attack and if it has a damage value
                 variables.computerChoice.hp -= parseInt($attack2)
+                $('.com-card-hp').text(`The computer\'s current card HP: ${variables.computerChoice.hp}`)
                 console.log('c' + variables.computerChoice.hp)
             } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
-                variables.computerChoice.hp -= parseInt($attack1) 
+                variables.computerChoice.hp -= parseInt($attack1)
+                $('.com-card-hp').text(`The computer\'s current card HP: ${variables.computerChoice.hp}`) 
                 console.log('c' + variables.computerChoice.hp)
             } else { // If there are no damaging moves, do 10 damage
                 variables.computerChoice.hp -= 10
+                $('.com-card-hp').text(`The computer\'s current card HP: ${variables.computerChoice.hp}`)
                 console.log('c' + variables.computerChoice.hp)
             }
             //=================================
@@ -139,12 +146,15 @@ let gameLogic = {
         } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
             if ($attack2 !== "") {
                     variables.playerChoice.hp -= parseInt($attack2)
+                    $('.player-card-hp').text(`Your current card HP: ${variables.playerChoice.hp}`)
                     console.log('p' + variables.playerChoice.hp)
             } else if ($attack1 !== "") {
-                variables.playerChoice.hp -= parseInt($attack1) 
+                variables.playerChoice.hp -= parseInt($attack1)
+                $('.player-card-hp').text(`Your current card HP: ${variables.playerChoice.hp}`) 
                 console.log('p' + variables.playerChoice.hp)
             } else {
                 variables.computerChoice.hp -= 10
+                $('.player-card-hp').text(`Your current card HP: ${variables.playerChoice.hp}`)
                 console.log('p' + variables.playerChoice.hp)
             }
             //==================================

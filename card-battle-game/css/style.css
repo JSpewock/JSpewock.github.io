@@ -121,6 +121,7 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     margin: 0 auto;
 }
 #row2 > button {
+    background-color: red;
     order: 2;
     width: 100px
 }
