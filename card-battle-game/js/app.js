@@ -186,6 +186,9 @@ $(() => {
     $('#htp-button').on('click', () => {
         $('#htp-modal').css('display', 'block')
     })
+    $('#modal-close').on('click', () => {
+        $("#htp-modal").css('display', 'none')
+    })
     $('#next-bg').on('click', () => {
         if (variables.backgroundImageCounter < 3) {
             variables.backgroundImageCounter += 1
