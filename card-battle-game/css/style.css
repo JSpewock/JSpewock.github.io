@@ -6,6 +6,7 @@ h1, h3 {
     color: yellow;
     text-shadow: 2px 2px 5px blue; /*inspiration taken from https://www.geeksforgeeks.org/css-font-border/ */
     font-family: 'Press Start 2P', cursive;
+    line-height: 120%;
 }
 /*I used mozilla docs to help remember how background images workedhttps://developer.mozilla.org/en-US/docs/Web/CSS/background-image */
 body {
@@ -103,10 +104,10 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     background-color: white;
 }
 #row1 > h3 {
-    padding-right: 5px;
+    padding: 15px;
 }
 #row3 > h3 {
-    padding-right: 5px;
+    padding: 15px;
 }
 #row2 {
     display: flex;
