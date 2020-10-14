@@ -70,11 +70,13 @@ let gameLogic = {
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         }
+        $('.player-card-hp').text('Choose a card')
         $('.player-card').on('click', () => {
             if (variables.playerLiveCard === false) { // Check to see if you already have a card down
                 variables.playerChoice = variables.cards.find(({imageUrl}) => imageUrl === $(event.target).attr('src')) //Inspiration for this method was found at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
                 $('#row2').append(event.target)
                 variables.playerLiveCard = true // Update to say that you now have a card down
+                $('.player-card-hp').text(`Your current card HP: ${variables.playerChoice.hp}`)
                 gameLogic.battle()
             }
         })
@@ -161,6 +163,7 @@ let gameLogic = {
             //Check if player card is dead
             //==================================
             if (variables.playerChoice.hp <= 0) {
+                // $('.player-card-hp').text(' ')
                 variables.playerChoice = ""
                 $('#row2 > .player-card').remove()
                 $('#attack-button').remove()

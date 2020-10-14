@@ -102,6 +102,12 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
 #row3 {
     background-color: white;
 }
+#row1 > h3 {
+    padding-right: 5px;
+}
+#row3 > h3 {
+    padding-right: 5px;
+}
 #row2 {
     display: flex;
     flex-direction: column;
