@@ -31,15 +31,22 @@ img {
                 Modal styles
 *******************************************/
 #htp-modal {
-    display: none;
     position: fixed;
     z-index: 1;
     width: 100%;
     height: 100%;
-    padding-top: 100px;
     left: 0;
     top: 0;
     background-color: rgba(0,0,0,0.4);
+    display: none;
+}
+#htp-textbox {
+    background-color: white;
+    height: 350px;
+    width: 550px;
+    border-radius: 2px;
+    margin: 100px auto;
+
 }
 
 /*******************************************
