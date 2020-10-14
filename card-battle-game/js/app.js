@@ -35,15 +35,17 @@ let Ui = {
         $('#row3').remove()
     },
     startGame: () => {
-
+        $('#not-needed-for-game').remove()
+        variables.playerCardCount = 5
+        variables.computerCardCount = 5
+        variables.playerLiveCard = false
+        variables.computerLiveCard = false
         for (let i = 0; i < 10; i++) { // loop to generate 10 cards
         let dexNum = Math.ceil(Math.random()*890) //Random pokedex number to generate pokemon
         $.ajax({
             url: `https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=${dexNum}`
         }).then((data) => {
             // console.log(data)
-            variables.playerCardCount = 5
-            variables.computerCardCount = 5
             randomCardNum = Math.floor(Math.random()*data.cards.length) // Random number to choose which style card of that pokemon
             variables.cards.push(data.cards[randomCardNum])
             let newCard = $('<img>').attr('src', data.cards[randomCardNum].imageUrl)
