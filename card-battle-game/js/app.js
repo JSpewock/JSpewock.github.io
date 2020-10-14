@@ -156,6 +156,7 @@ let gameLogic = {
     win: () => {
         if (variables.computerCardCount === 0) {
             console.log('Congratulations! The computer has run out of cards; You win!')
+            
         } else if (variables.playerCardCount === 0) {
             console.log('Not this time trainer, you\'ve been bested.')
         }
@@ -169,7 +170,9 @@ $(() => {
     //information on how to use audio taken from the following links
     //https://stackoverflow.com/questions/8489710/play-an-audio-file-using-jquery-when-a-button-is-clicked
     //https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
-
+    //==============================
+    //Audio variables
+    //==============================
     const backgroundMusic = new Audio()
     backgroundMusic.src = "./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3"
     backgroundMusic.volume = 0.5
@@ -178,17 +181,20 @@ $(() => {
     variables.battleMusic.src = './sounds/cynthia_battle_music.mp3'
     variables.battleMusic.volume = 0.10
 
+    //Start button
     $('#start-button').on('click', () => {
         variables.battleMusic.play()
         Ui.makeDivs()
         Ui.startGame()
     })
+    //How to play modal
     $('#htp-button').on('click', () => {
         $('#htp-modal').css('display', 'block')
     })
     $('#modal-close').on('click', () => {
         $("#htp-modal").css('display', 'none')
     })
+    //background image selector
     $('#next-bg').on('click', () => {
         if (variables.backgroundImageCounter < 3) {
             variables.backgroundImageCounter += 1

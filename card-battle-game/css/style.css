@@ -30,6 +30,9 @@ img {
 
 /*******************************************
                 Modal styles
+
+Modal styling inspiration was taken from the GA lesson on modals https://git.generalassemb.ly/seir-9-21/student-resources/blob/master/1_front_end_development/w03d02/morning_exercise/README.md
+
 *******************************************/
 #htp-modal {
     position: fixed;
@@ -58,6 +61,27 @@ img {
 }
 #htp-footer {
     text-align: right;
+}
+
+#win-lose-modal {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+}
+#win-lose-textbox {
+    background-color: white;
+    height: 450px;
+    width: 650px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 100px auto;
+    line-height: 120%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /*******************************************
