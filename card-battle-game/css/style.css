@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
 h1, h3 {
     text-align: center;
     color: yellow;
     text-shadow: 2px 2px 5px blue; /*inspiration taken from https://www.geeksforgeeks.org/css-font-border/ */
     font-family: 'Press Start 2P', cursive;
-    line-height: 120%;
 }
 /*I used mozilla docs to help remember how background images workedhttps://developer.mozilla.org/en-US/docs/Web/CSS/background-image */
 body {
@@ -23,8 +23,6 @@ img {
 .buttons {
     width: 15%;
     height: 100%;
-    /* background-color: white; */
-    /* float: bottom; */
 }
 button {
     background-color: #716A68;
@@ -34,7 +32,7 @@ button {
 button:hover {
     cursor: pointer;
 }
-p {
+#background-button > p, #music-button > p {
     text-align: center;
     color: black;
     text-shadow: 2px 2px 5px blue; /*inspiration taken from https://www.geeksforgeeks.org/css-font-border/ */
@@ -96,6 +94,7 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     display: none;
 }
 #win-lose-textbox {
+    font-family: 'Lato', sans-serif;
     background-color: white;
     height: 450px;
     width: 650px;
@@ -104,6 +103,10 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     margin: 100px auto;
     line-height: 120%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+#win-lose-textbox > p {
+    background-color: white;
+
 }
 
 /*******************************************
@@ -130,6 +133,9 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
 #row3 > h3 {
     padding: 15px;
 }
+#row3 > button {
+    display: block;
+}
 #row2 {
     display: flex;
     flex-direction: column;
@@ -149,9 +155,14 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     margin: 0 auto;
 }
 #row2 > button {
+    position: absolute;
     background-color: red;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
     order: 2;
-    width: 100px
+    width: 150px;
+    height: 60px;
+    padding: 15px;
 }
 
 @media screen and (max-width: 1250px) {
@@ -181,4 +192,10 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
         height: 80%;
         margin: 5px auto;
     }
+}
+
+@keyframes damageCounter {
+    33% {color: yellow;}
+    66% {color: red}
+    100% {color: yellow;}
 }

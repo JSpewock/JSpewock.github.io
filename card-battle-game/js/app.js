@@ -36,7 +36,13 @@ let Ui = {
         }
         $('<h3>').addClass('player-card-hp').text('Your current card HP: ').appendTo('#row3')
         $('<h3>').addClass('com-card-hp').text('The computer\'s current card HP: ').appendTo('#row1')
-        // $('<button>').attr('reset-button').val('Reset').appendTo('#row3')
+        //Reset button
+        $('<button>').attr('id', 'reset-button').text('Reset').appendTo('#row3')
+        $('#reset-button').on('click', () => {
+            Ui.removeDivs()
+            Ui.makeDivs()
+            Ui.startGame()
+        })
     },
     removeDivs: () =>{
         $('#row1').remove()
@@ -105,7 +111,7 @@ let gameLogic = {
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         } else {
-            $('<button>').attr('id', 'attack-button').text('Attack').appendTo('#row2')
+            $('<button>').attr('id', 'attack-button').text('Attack!').appendTo('#row2')
             $('#attack-button').on('click', () => {
                 gameLogic.attack(variables.playerChoice)
                 gameLogic.attack(variables.computerChoice)
@@ -141,6 +147,7 @@ let gameLogic = {
                 $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
                 console.log('c' + variables.computerChoice.hp)
             }
+            $('.com-card-hp').css('animation-name', 'damageCounter').css('animation-duration', '2s')
             //=================================
             //Check if computer card is dead
             //=================================
@@ -318,4 +325,6 @@ $(() => {
     $('#stop-music').on('click', () => {
         variables.backgroundMusic.pause()
     })
+    //Reset button
+    
 })
