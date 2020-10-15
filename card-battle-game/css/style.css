@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
 h1, h3 {
     text-align: center;
@@ -20,9 +21,29 @@ img {
     width: 165px;
 }
 .buttons {
-    width: 10%;
+    width: 15%;
     height: 100%;
-    background-color: white;
+    /* background-color: white; */
+    /* float: bottom; */
+}
+button {
+    background-color: #716A68;
+    padding: 5px;
+    border-radius: 5px;
+}
+button:hover {
+    cursor: pointer;
+}
+p {
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px 5px blue; /*inspiration taken from https://www.geeksforgeeks.org/css-font-border/ */
+    font-family: 'Roboto Mono', monospace;
+    line-height: 120%;
+    font-weight: 700;
+    background-color: darkgray;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 #background-button > p {
