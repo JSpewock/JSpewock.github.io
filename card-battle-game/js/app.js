@@ -113,8 +113,11 @@ let gameLogic = {
         } else {
             $('<button>').attr('id', 'attack-button').text('Attack!').appendTo('#row2')
             $('#attack-button').on('click', () => {
+                console.log(variables.playerChoice)
                 gameLogic.attack(variables.playerChoice)
-                gameLogic.attack(variables.computerChoice)
+                setTimeout(()=> {
+                    gameLogic.attack(variables.computerChoice)
+                },2000)
             })
         }
     },
@@ -176,6 +179,9 @@ let gameLogic = {
                 $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
                 console.log('p' + variables.playerChoice.hp)
             }
+            $('#row2 > .com-card').animate({top: '+=10px'}, 'fast')
+            $('#row2 > .player-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
+            $('#row2 > .player-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
             //==================================
             //Check if player card is dead
             //==================================
