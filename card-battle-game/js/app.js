@@ -12,6 +12,7 @@
 
 
 let variables = {
+    attackSound: '',
     lossMusic: '',
     victoryMusic: '',
     battleMusic: '',
@@ -113,11 +114,11 @@ let gameLogic = {
         } else {
             $('<button>').attr('id', 'attack-button').text('Attack!').appendTo('#row2')
             $('#attack-button').on('click', () => {
-                console.log(variables.playerChoice)
+                //clarification for what to do with setTimeouts taken from https://stackoverflow.com/questions/1190642/how-can-i-pass-a-parameter-to-a-settimeout-callback
                 gameLogic.attack(variables.playerChoice)
                 setTimeout(()=> {
                     gameLogic.attack(variables.computerChoice)
-                },2000)
+                },1000)
             })
         }
     },
@@ -132,6 +133,13 @@ let gameLogic = {
         let $attack1 = currentCard.attacks[0].damage
         let $attack2 = ""
         if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
+            variables.attackSound.currentTime = 2
+            variables.attackSound.play()
+            variables.attackSound.addEventListener('timeupdate', () => {
+                if (variables.attackSound.currentTime >= 3) {
+                    variables.attackSound.pause()
+                }
+            })
 
         //=======================
         //Attacking logic
@@ -150,7 +158,10 @@ let gameLogic = {
                 $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
                 console.log('c' + variables.computerChoice.hp)
             }
-            $('#row2 > .player-card').animate({bottom: '+=10px'}, 'fast')
+            //Information about Jquery animations taken from https://www.w3schools.com/jquery/jquery_animate.asp
+            //and https://www.w3schools.com/jquery/eff_animate.asp
+            $('#row2 > .player-card').animate({marginBottom: '+=10px'}, 'fast')
+            $('#row2 > .player-card').animate({marginBottom: '-=10px'}, 'fast')
             $('#row2 > .com-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
             $('#row2 > .com-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
             //=================================
@@ -165,7 +176,7 @@ let gameLogic = {
                 variables.computerLiveCard = false
                 gameLogic.battle()
             }
-        } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
+            } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
             if ($attack2 !== "") {
                 variables.playerChoice.hp -= parseInt($attack2)
                 $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
@@ -179,7 +190,8 @@ let gameLogic = {
                 $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
                 console.log('p' + variables.playerChoice.hp)
             }
-            $('#row2 > .com-card').animate({top: '+=10px'}, 'fast')
+            $('#row2 > .com-card').animate({marginTop: '+=10px'}, 'fast')
+            $('#row2 > .com-card').animate({marginTop: '-=10px'}, 'fast')
             $('#row2 > .player-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
             $('#row2 > .player-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
             //==================================
@@ -274,6 +286,11 @@ $(() => {
     variables.backgroundMusic.src = ''
     variables.backgroundMusic.volume = 0.2
 
+    variables.attackSound = new Audio()
+    variables.attackSound.src = './sounds/cat_sounds.mp3'
+    variables.attackSound.volume = 0.3
+
+
     //Start button
     $('#start-button').on('click', () => {
         variables.backgroundMusic.pause()
@@ -333,6 +350,5 @@ $(() => {
     $('#stop-music').on('click', () => {
         variables.backgroundMusic.pause()
     })
-    //Reset button
     
 })
