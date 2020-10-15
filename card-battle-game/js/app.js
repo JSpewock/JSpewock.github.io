@@ -133,10 +133,10 @@ let gameLogic = {
         let $attack1 = currentCard.attacks[0].damage
         let $attack2 = ""
         if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
-            variables.attackSound.currentTime = 2
+            variables.attackSound.currentTime = 18.5
             variables.attackSound.play()
             variables.attackSound.addEventListener('timeupdate', () => {
-                if (variables.attackSound.currentTime >= 3) {
+                if (variables.attackSound.currentTime >= 19) {
                     variables.attackSound.pause()
                 }
             })
@@ -287,8 +287,8 @@ $(() => {
     variables.backgroundMusic.volume = 0.2
 
     variables.attackSound = new Audio()
-    variables.attackSound.src = './sounds/cat_sounds.mp3'
-    variables.attackSound.volume = 0.3
+    variables.attackSound.src = './sounds/pokemon_sounds.mp3'
+    variables.attackSound.volume = 0.25
 
 
     //Start button
