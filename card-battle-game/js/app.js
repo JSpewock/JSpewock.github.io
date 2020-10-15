@@ -52,6 +52,7 @@ let Ui = {
     },
     startGame: () => {
         $('#not-needed-for-game').remove()
+        variables.cards = []
         variables.playerCardCount = 5
         variables.computerCardCount = 5
         variables.playerLiveCard = false
@@ -72,6 +73,7 @@ let Ui = {
                 newCard.addClass('player-card')
                 $('#row3').append(newCard)
             }
+            console.log(variables.cards)
             gameLogic.ChoosePoke()            
             })
         }
@@ -127,87 +129,96 @@ let gameLogic = {
         if (variables.computerCardCount === 0 || variables.playerCardCount === 0) {
             gameLogic.win()
         } else {
-        variables.computerChoice.hp = parseInt(variables.computerChoice.hp)
-        variables.playerChoice.hp = parseInt(variables.playerChoice.hp)
-        //attack 1 & 2 are set equal to the moves on the current card
-        let $attack1 = currentCard.attacks[0].damage
-        let $attack2 = ""
-        if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
+            //checks to see if the cards has hp, if it doesn't, give it 100 hp
+            if (variables.computerChoice.hp) {
+                variables.computerChoice.hp = parseInt(variables.computerChoice.hp)
+            } else {variables.computerChoice.hp = 100}
+
+            if (variables.playerChoice.hp) {
+                variables.playerChoice.hp = parseInt(variables.playerChoice.hp)
+            } else {variables.playerChoice = 100}
+            //attack 1 & 2 are set equal to the moves on the current card
+            let $attack1 = ""
+            let $attack2 = ""
+            //These next 2 lines check if there is a move and if there is, change the value of the attack variables
+            if (currentCard.attacks[1]) {$attack2 = currentCard.attacks[1].damage}
+            if (currentCard.attacks[0]) {$attack1 = currentCard.attacks[0].damage}
+
             variables.attackSound.currentTime = 18.5
             variables.attackSound.play()
             variables.attackSound.addEventListener('timeupdate', () => {
                 if (variables.attackSound.currentTime >= 19) {
                     variables.attackSound.pause()
                 }
-            })
+                })
 
-        //=======================
-        //Attacking logic
-        //=======================
-        if (currentCard === variables.playerChoice){ //Check to see if the player is attacking or the computer is attacking
-            if ($attack2 !== "") { //The first line checks if there is a second attack and if it has a damage value
-                variables.computerChoice.hp -= parseInt($attack2)
-                $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
-                console.log('c' + variables.computerChoice.hp)
-            } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
-                variables.computerChoice.hp -= parseInt($attack1)
-                $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`) 
-                console.log('c' + variables.computerChoice.hp)
-            } else { // If there are no damaging moves, do 10 damage
-                variables.computerChoice.hp -= 10
-                $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
-                console.log('c' + variables.computerChoice.hp)
+            //=======================
+            //Attacking logic
+            //=======================
+            if (currentCard === variables.playerChoice){ //Check to see if the player is attacking or the computer is attacking
+                if ($attack2 !== "") { //The first line checks if there is a second attack and if it has a damage value
+                    variables.computerChoice.hp -= parseInt($attack2)
+                    $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
+                    console.log('c' + variables.computerChoice.hp)
+                } else if ($attack1 !== "") { // Checks to see if the first attack has a damage value
+                    variables.computerChoice.hp -= parseInt($attack1)
+                    $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`) 
+                    console.log('c' + variables.computerChoice.hp)
+                } else { // If there are no damaging moves, do 10 damage
+                    variables.computerChoice.hp -= 10
+                    $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
+                    console.log('c' + variables.computerChoice.hp)
+                }
+                //Information about Jquery animations taken from https://www.w3schools.com/jquery/jquery_animate.asp
+                //and https://www.w3schools.com/jquery/eff_animate.asp
+                $('#row2 > .player-card').animate({marginBottom: '+=10px'}, 'fast')
+                $('#row2 > .player-card').animate({marginBottom: '-=10px'}, 'fast')
+                $('#row2 > .com-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
+                $('#row2 > .com-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
+                //=================================
+                //Check if computer card is dead
+                //=================================
+                if (variables.computerChoice.hp <= 0) {
+                    variables.computerChoice = ""
+                    $('#row2 > .com-card').remove()
+                    $('#attack-button').remove()
+                    variables.computerCardCount -= 1
+                    console.log(`the computer has ${variables.computerCardCount} cards left`)
+                    variables.computerLiveCard = false
+                    gameLogic.battle()
+                }
+                } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
+                if ($attack2 !== "") {
+                    variables.playerChoice.hp -= parseInt($attack2)
+                    $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
+                    console.log('p' + variables.playerChoice.hp)
+                } else if ($attack1 !== "") {
+                    variables.playerChoice.hp -= parseInt($attack1)
+                    $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
+                    console.log('p' + variables.playerChoice.hp)
+                } else {
+                    variables.computerChoice.hp -= 10
+                    $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
+                    console.log('p' + variables.playerChoice.hp)
+                }
+                $('#row2 > .com-card').animate({marginTop: '+=10px'}, 'fast')
+                $('#row2 > .com-card').animate({marginTop: '-=10px'}, 'fast')
+                $('#row2 > .player-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
+                $('#row2 > .player-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
+                //==================================
+                //Check if player card is dead
+                //==================================
+                if (variables.playerChoice.hp <= 0) {
+                    variables.playerChoice = ""
+                    $('#row2 > .player-card').remove()
+                    $('#attack-button').remove()
+                    variables.playerCardCount -= 1
+                    console.log(`the player has ${variables.playerCardCount} cards left`)
+                    variables.playerLiveCard = false
+                    gameLogic.ChoosePoke()
+                }
+                }
             }
-            //Information about Jquery animations taken from https://www.w3schools.com/jquery/jquery_animate.asp
-            //and https://www.w3schools.com/jquery/eff_animate.asp
-            $('#row2 > .player-card').animate({marginBottom: '+=10px'}, 'fast')
-            $('#row2 > .player-card').animate({marginBottom: '-=10px'}, 'fast')
-            $('#row2 > .com-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
-            $('#row2 > .com-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
-            //=================================
-            //Check if computer card is dead
-            //=================================
-            if (variables.computerChoice.hp <= 0) {
-                variables.computerChoice = ""
-                $('#row2 > .com-card').remove()
-                $('#attack-button').remove()
-                variables.computerCardCount -= 1
-                console.log(`the computer has ${variables.computerCardCount} cards left`)
-                variables.computerLiveCard = false
-                gameLogic.battle()
-            }
-            } else if (currentCard === variables.computerChoice) { // These lines are the same as above except it damages the player's card
-            if ($attack2 !== "") {
-                variables.playerChoice.hp -= parseInt($attack2)
-                $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
-                console.log('p' + variables.playerChoice.hp)
-            } else if ($attack1 !== "") {
-                variables.playerChoice.hp -= parseInt($attack1)
-                $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
-                console.log('p' + variables.playerChoice.hp)
-            } else {
-                variables.computerChoice.hp -= 10
-                $('.player-card-hp').html(`<h3>Your current card HP:<br>${variables.playerChoice.hp}</h3>`)
-                console.log('p' + variables.playerChoice.hp)
-            }
-            $('#row2 > .com-card').animate({marginTop: '+=10px'}, 'fast')
-            $('#row2 > .com-card').animate({marginTop: '-=10px'}, 'fast')
-            $('#row2 > .player-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
-            $('#row2 > .player-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
-            //==================================
-            //Check if player card is dead
-            //==================================
-            if (variables.playerChoice.hp <= 0) {
-                variables.playerChoice = ""
-                $('#row2 > .player-card').remove()
-                $('#attack-button').remove()
-                variables.playerCardCount -= 1
-                console.log(`the player has ${variables.playerCardCount} cards left`)
-                variables.playerLiveCard = false
-                gameLogic.ChoosePoke()
-            }
-            }
-        }
     },
     win: () => {
         if (variables.computerCardCount === 0) {
