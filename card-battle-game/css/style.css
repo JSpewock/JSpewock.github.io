@@ -144,15 +144,20 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
         /* flex-wrap: wrap; */
     }
     #row1, #row3 {
-        height: 100px
+        height: 125px
     }
     #row1, #row3 > h3 {
-        font-size: 30%;
+        font-size: 35%;
     }
     #row2 {
         height: 200px;
     }
     #row2 > img {
         height: 50%;
+    }
+    #win-lose-textbox {
+        width: 75%;
+        height: 80%;
+        margin: 5px auto;
     }
 }

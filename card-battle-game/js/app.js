@@ -10,6 +10,7 @@
 
 
 let variables = {
+    victoryMusic: '',
     battleMusic: '',
     backgroundMusic: [],
     cards: [], //Array for card values
@@ -177,6 +178,8 @@ let gameLogic = {
     },
     win: () => {
         if (variables.computerCardCount === 0) {
+            variables.battleMusic.pause()
+            variables.victoryMusic.play()
             console.log('Congratulations! The computer has run out of cards; You win!')
             $('#win-lose-textbox').html(`
             <h2>Congratulations, you won!</h2>
@@ -186,6 +189,9 @@ let gameLogic = {
             $('#win-lose-modal').css('display', 'block')
             $('#close-win-lose').on('click', () =>{
                 $('#win-lose-modal').css('display', 'none')
+                variables.victoryMusic.pause()
+                variables.battleMusic.currentTime = 0
+                variables.battleMusic.play()
                 Ui.removeDivs()
                 Ui.makeDivs()
                 Ui.startGame()
@@ -226,6 +232,10 @@ $(() => {
     variables.battleMusic = new Audio()
     variables.battleMusic.src = './sounds/cynthia_battle_music.mp3'
     variables.battleMusic.volume = 0.10
+
+    variables.victoryMusic = new Audio()
+    variables.victoryMusic.src = "./sounds/HG_SS_victory.mp3"
+    variables.victoryMusic.volume = 0.1
 
     //Start button
     $('#start-button').on('click', () => {
