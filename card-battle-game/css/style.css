@@ -11,7 +11,7 @@ h1, h3 {
 /*I used mozilla docs to help remember how background images workedhttps://developer.mozilla.org/en-US/docs/Web/CSS/background-image */
 body {
     background-image: url("https://i.imgur.com/5oexPaK.jpg");
-    background-size: cover;
+    background-size: auto;
     width: 95%;
     height: 100%;
 }
@@ -131,4 +131,16 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
     background-color: red;
     order: 2;
     width: 100px
+}
+
+@media screen and (max-width: 1250px) {
+    img {
+        height: 40%;
+        width: 20%
+    }
+    #row1, #row2, #row3 {
+        width: 90%;
+        margin: 5px auto;
+        /* flex-wrap: wrap; */
+    }
 }
