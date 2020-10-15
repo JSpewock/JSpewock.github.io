@@ -135,12 +135,24 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
 
 @media screen and (max-width: 1250px) {
     img {
-        height: 40%;
-        width: 20%
+        height: 100%;
+        width: 15%
     }
     #row1, #row2, #row3 {
         width: 90%;
         margin: 5px auto;
         /* flex-wrap: wrap; */
+    }
+    #row1, #row3 {
+        height: 100px
+    }
+    #row1, #row3 > h3 {
+        font-size: 30%;
+    }
+    #row2 {
+        height: 200px;
+    }
+    #row2 > img {
+        height: 50%;
     }
 }
