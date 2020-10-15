@@ -15,7 +15,7 @@ let variables = {
     lossMusic: '',
     victoryMusic: '',
     battleMusic: '',
-    backgroundMusic: [],
+    backgroundMusic: ['./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3', './sounds/Lake.mp3', './sounds/Jublife_City.mp3', './sounds/poffin.mp3', './sounds/underground_passage.mp3', './sounds/route_205.mp3'],
     cards: [], //Array for card values
     playerChoice: '', // variable to hold the value of the players choice of card
     computerChoice: '',
