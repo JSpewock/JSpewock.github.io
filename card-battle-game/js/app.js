@@ -147,9 +147,9 @@ let gameLogic = {
                 $('.com-card-hp').html(`<h3>The computer's current card HP:<br>${variables.computerChoice.hp}</h3>`)
                 console.log('c' + variables.computerChoice.hp)
             }
+            $('#row2 > .player-card').animate({bottom: '+=10px'}, 'fast')
             $('#row2 > .com-card').animate({height: '-=2%', width: '-=2%'}, 'fast')
             $('#row2 > .com-card').animate({height: '+=2%', width: '+=2%'}, 'fast')
-            $('.com-card-hp').animate({color: 'yellow'}, 'slow')
             //=================================
             //Check if computer card is dead
             //=================================
