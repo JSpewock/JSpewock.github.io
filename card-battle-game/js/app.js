@@ -36,6 +36,7 @@ let Ui = {
         }
         $('<h3>').addClass('player-card-hp').text('Your current card HP: ').appendTo('#row3')
         $('<h3>').addClass('com-card-hp').text('The computer\'s current card HP: ').appendTo('#row1')
+        // $('<button>').attr('reset-button').val('Reset').appendTo('#row3')
     },
     removeDivs: () =>{
         $('#row1').remove()
@@ -312,5 +313,8 @@ $(() => {
             variables.backgroundMusic.currentTime = 0
             variables.backgroundMusic.play()
         }
+    })
+    $('#stop-music').on('click', () => {
+        variables.backgroundMusic.pause()
     })
 })
