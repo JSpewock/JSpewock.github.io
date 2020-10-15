@@ -6,10 +6,13 @@
 //underground passage
 //poffin 
 //route 225
+//Jublife City (night)
+//lake
 
 
 
 let variables = {
+    lossMusic: '',
     victoryMusic: '',
     battleMusic: '',
     backgroundMusic: [],
@@ -179,6 +182,7 @@ let gameLogic = {
     win: () => {
         if (variables.computerCardCount === 0) {
             variables.battleMusic.pause()
+            variables.victoryMusic.currentTime = 0
             variables.victoryMusic.play()
             console.log('Congratulations! The computer has run out of cards; You win!')
             $('#win-lose-textbox').html(`
@@ -198,6 +202,9 @@ let gameLogic = {
             })
 
         } else if (variables.playerCardCount === 0) {
+            variables.battleMusic.pause()
+            variables.lossMusic.currentTime = 0
+            variables.lossMusic.play()
             console.log('Not this time trainer, you\'ve been bested.')
             $('#win-lose-textbox').html(`
             <h2>Not this time trainer, you've been bested.</h2>
@@ -206,6 +213,9 @@ let gameLogic = {
             )
             $('#win-lose-modal').css('display', 'block')
             $('#close-win-lose').on('click', () =>{
+                variables.lossMusic.pause()
+                variables.battleMusic.currentTime = 0
+                variables.battleMusic.play()
                 $('#win-lose-modal').css('display', 'none')
                 Ui.removeDivs()
                 Ui.makeDivs()
@@ -236,6 +246,10 @@ $(() => {
     variables.victoryMusic = new Audio()
     variables.victoryMusic.src = "./sounds/HG_SS_victory.mp3"
     variables.victoryMusic.volume = 0.1
+
+    variables.lossMusic = new Audio()
+    variables.lossMusic.src = "./sounds/Lose_music.mp3"
+    variables.lossMusic.volume = 0.15
 
     //Start button
     $('#start-button').on('click', () => {
