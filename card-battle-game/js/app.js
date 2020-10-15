@@ -306,6 +306,9 @@ $(() => {
     $('#start-button').on('click', () => {
         variables.backgroundMusic.pause()
         variables.battleMusic.play()
+        variables.battleMusic.addEventListener('ended', () => {
+            variables.battleMusic.play()
+        })
         Ui.makeDivs()
         Ui.startGame()
     })
