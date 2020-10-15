@@ -15,7 +15,9 @@ let variables = {
     lossMusic: '',
     victoryMusic: '',
     battleMusic: '',
-    backgroundMusic: ['./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3', './sounds/Lake.mp3', './sounds/Jublife_City.mp3', './sounds/poffin.mp3', './sounds/underground_passage.mp3', './sounds/route_205.mp3'],
+    backgroundMusic: '',
+    backgroundMusicCounter: -1,
+    backgroundMusicArr: ['./sounds/Route 225 (Day) - Pokémon Diamond_Pearl_Platinum.mp3', './sounds/Lake.mp3', './sounds/Jubilife_City.mp3', './sounds/poffin.mp3', './sounds/underground_passage.mp3', './sounds/route_205.mp3'],
     cards: [], //Array for card values
     playerChoice: '', // variable to hold the value of the players choice of card
     computerChoice: '',
@@ -232,6 +234,7 @@ $(() => {
     //information on how to use audio taken from the following links
     //https://stackoverflow.com/questions/8489710/play-an-audio-file-using-jquery-when-a-button-is-clicked
     //https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics
+    
     //==============================
     //Audio variables
     //==============================
@@ -251,12 +254,17 @@ $(() => {
     variables.lossMusic.src = "./sounds/Lose_music.mp3"
     variables.lossMusic.volume = 0.15
 
+    variables.backgroundMusic = new Audio()
+    variables.backgroundMusic.src = ''
+    variables.backgroundMusic.volume = 0.3
+
     //Start button
     $('#start-button').on('click', () => {
         variables.battleMusic.play()
         Ui.makeDivs()
         Ui.startGame()
     })
+
     //How to play modal
     $('#htp-button').on('click', () => {
         $('#htp-modal').css('display', 'block')
@@ -264,6 +272,7 @@ $(() => {
     $('#modal-close').on('click', () => {
         $("#htp-modal").css('display', 'none')
     })
+
     //background image selector
     $('#next-bg').on('click', () => {
         if (variables.backgroundImageCounter < 3) {
@@ -275,6 +284,30 @@ $(() => {
         if (variables.backgroundImageCounter > 0) {
             variables.backgroundImageCounter -= 1
             $('body').css('background-image', `url(${variables.backgroundImages[variables.backgroundImageCounter]})`)
+        }
+    })
+
+    //Music buttons
+    $('#next-music').on('click', () => {
+        if (variables.backgroundMusicCounter < variables.backgroundMusicArr.length - 1) {
+            variables.backgroundMusicCounter += 1
+            if(variables.backgroundMusic.currentTime > 0) {
+                variables.backgroundMusic.pause()
+            }
+            variables.backgroundMusic.src = variables.backgroundMusicArr[variables.backgroundMusicCounter]
+            variables.backgroundMusic.currentTime = 0
+            variables.backgroundMusic.play()
+        }
+    })
+    $('#prev-music').on('click', () => {
+        if (variables.backgroundMusicCounter > 0) {
+            variables.backgroundMusicCounter -= 1
+            if(variables.backgroundMusic.currentTime > 0) {
+                variables.backgroundMusic.pause()
+            }
+            variables.backgroundMusic.src = variables.backgroundMusicArr[variables.backgroundMusicCounter]
+            variables.backgroundMusic.currentTime = 0
+            variables.backgroundMusic.play()
         }
     })
 })
