@@ -193,9 +193,3 @@ Modal styling inspiration was taken from the GA lesson on modals https://git.gen
         margin: 5px auto;
     }
 }
-
-@keyframes damageCounter {
-    33% {color: yellow;}
-    66% {color: red}
-    100% {color: yellow;}
-}
