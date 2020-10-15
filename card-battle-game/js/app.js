@@ -256,7 +256,7 @@ $(() => {
 
     variables.backgroundMusic = new Audio()
     variables.backgroundMusic.src = ''
-    variables.backgroundMusic.volume = 0.3
+    variables.backgroundMusic.volume = 0.2
 
     //Start button
     $('#start-button').on('click', () => {
@@ -293,6 +293,9 @@ $(() => {
             variables.backgroundMusicCounter += 1
             if(variables.backgroundMusic.currentTime > 0) {
                 variables.backgroundMusic.pause()
+            }
+            if (variables.backgroundMusicCounter === 1 || variables.backgroundMusicCounter === 2) {
+                variables.backgroundMusic.volume = 0.1
             }
             variables.backgroundMusic.src = variables.backgroundMusicArr[variables.backgroundMusicCounter]
             variables.backgroundMusic.currentTime = 0
