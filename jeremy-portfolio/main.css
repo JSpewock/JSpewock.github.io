@@ -38,6 +38,7 @@ span {
 .header {
   /* background: linear-gradient(0.25turn, #51B0EB, #A0EEAE, #EBAA50); */
   /* inspiration for this from https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient() */
+  /* I took this color from https://digitalsynopsis.com/design/beautiful-color-ui-gradients-backgrounds/ */
   background: linear-gradient(.025turn, #2193b0, #6dd5ed);
   position: absolute;
   top: 5px;

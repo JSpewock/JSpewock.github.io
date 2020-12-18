@@ -8,6 +8,7 @@ $(() => {
   $('<div>').css('width', '99%').css('margin-left', '0.5%').css('height', (windowHeight/2)).attr('class', 'header').appendTo('body')
   $('<h2>').html(`Hey, my name is <span>Jeremy</span>. Welcome to my portfolio.`).attr('id', 'intro-h2').appendTo('div')
   $('<div>').attr('class', 'nav').css('margin-top', (windowHeight/2)).css('width', '100%').appendTo('body')
+  //I learned how to do this on https://designshack.net/articles/html/how-to-link-to-specific-points-in-a-page-and-animate-the-scroll/
   $('<a>').attr('href', './images/new-resume.pdf').text('Resume').appendTo('.nav')
   $('<a>').attr('href', '#about-section').text('About').appendTo('.nav')
   $('<a>').attr('href', '#projects-section').text('Projects').appendTo('.nav')
