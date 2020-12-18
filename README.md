@@ -1,2 +1,2 @@
 # JSpewock.github.io
-Repo to house GA projects
+Repository for front-end Project 1, card-battle-game
