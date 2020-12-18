@@ -1,1 +1,1 @@
-My portfolio can be found at jspewock.github.io/jeremy-portfolio
+My portfolio can be found at https://jspewock.github.io/jeremy-portfolio
