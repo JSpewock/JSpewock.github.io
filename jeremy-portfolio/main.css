@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #DAE8EB;
+}
+
+span {
+  color: white
+}
+
+#intro-h2 {
+  /* color: #6E6E6E; */
+  color:#2C344A;
+}
+
+#pic-of-me {
+  width: 200px;
+  border-radius: 360px;
+}
+
+#personal {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  margin-left: 30%;
+}
+
+#about {
+  max-width: 800px;
+  text-align: center;
+}
+
+#headshot > h3 {
+  /* padding: 5px; */
+  margin-right: 5px;
+}
+
+.header {
+  /* background: linear-gradient(0.25turn, #51B0EB, #A0EEAE, #EBAA50); */
+  /* inspiration for this from https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient() */
+  background: linear-gradient(.025turn, #2193b0, #6dd5ed);
+  position: absolute;
+  top: 5px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  background-color: black;
+  height: 60px;
+  top: 0;
+  left: 0;
+}
+
+.nav > a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
+.nav > a:hover {
+  background-color: #6E6E6E;
+}
+
+.section {
+  text-align: center;
+  /* color: white; */
+  border-bottom: 5px solid black;
+  border-top: 5px solid black;
+  /* max-width: 300px; */
+  padding: 5px;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  /* margin-left: 40%; */
+}
+
+#about-h2 {
+  margin-top: 20px;
+}
+
+p {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.tech-skills {
+  text-align: center;
+}
+
+.project {
+  width: 500px;
+  height: 300px;
+}
+
+#projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+.project-info {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+.project-img {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+}
+
+.project-picture {
+  width: inherit;
+}
+
+.project {
+  position: relative;
+  display: inline-block;
+}
+
+.project-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid white;
+  padding: 5px;
+  margin: auto;
+  max-width: 200px;
+}
+
+#contact-me {
+  text-align: center;
+}
+.social-link {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
+#message-input {
+  width: 400px;
+  height: 200px;
+}
+#email-input {
+  width: 400px;
+}
+
+#contact-me > p {
+  font-size: 20px;
+}
+
+#back-to-top {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  padding: 20px;
+}
+#back-to-top-div {
+  text-align: center;
+  margin-top: 60px;
+}
